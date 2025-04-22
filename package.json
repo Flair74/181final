@@ -1,6 +1,7 @@
 {
   "name": "181final",
   "version": "0.1.0",
+  "homepage": "https://flair74.github.io/181final/",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -22,6 +23,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -44,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "tailwindcss": "^3.4.17"
   }
 }
