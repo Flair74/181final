@@ -1,13 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
+import Header from './components/header';
+import { User } from './components/interfaces';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [users, setUsers] = useState<User[]>(() => {
+    // localStorage is a recognized global value, yet linter throws error.
+    // eslint-disable-next-line no-undef
+    const saved = localStorage.getItem('users');
+    // JSON.parse is parsing to an array of Users, recognized by the function, not any type
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    localStorage.setItem('users', JSON.stringify(users));
+  }, [users]);
+
   return (
-    <div>
-      <h1 className="text-lg">khang nguyen - ktnguyen@udel.edu</h1>
-      <p>See this repository here: https://github.com/Flair74/181final</p>
-      <p>Progress Doc: https://github.com/Flair74/181final/blob/master/docs/progress.md</p>
+    <div className="font-[Outfit]">
+      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} setUsers={setUsers}/>
     </div>
   );
 }
