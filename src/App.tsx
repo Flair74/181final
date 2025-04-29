@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import './App.css';
-import Header from './components/header';
+import Sidebar from './components/sidebar';
 import { User } from './components/interfaces';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="font-[Outfit]">
-      <Header currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} setUsers={setUsers}/>
+      <Sidebar currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} setUsers={setUsers}/>
     </div>
   );
 }
