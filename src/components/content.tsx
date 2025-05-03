@@ -2,6 +2,10 @@
 import React from 'react';
 import '../App.css';
 import { User } from './interfaces';
+import Matches from './matches';
+import Practices from './practices';
+import Friends from './friends';
+import Profile from './profile';
 
 interface ContentProps {
     currentUser: User | null;
@@ -16,7 +20,24 @@ const Content: React.FC<ContentProps> = (props) => {
     return (
         <div className='flex flex-1 h-screen justify-center'>
             {mode === "match" && (
-                <h1 className='place-self-center'>no matches to display :(</h1>
+                <Matches
+                    currentUser={currentUser}
+                />
+            )}
+            {mode === "practice" && (
+                <Practices
+                    currentUser={currentUser}
+                />
+            )}
+            {mode === "friends" && (
+                <Friends
+                    currentUser={currentUser}
+                />
+            )}
+            {mode === "profile" && (
+                <Profile
+                    currentUser={currentUser}
+                />
             )}
         </div>
     )

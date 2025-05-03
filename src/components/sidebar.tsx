@@ -12,7 +12,7 @@ interface SidebarProps {
   }
 
   const Sidebar: React.FC<SidebarProps> = (props) => {
-    const { currentUser, setCurrentUser, users, setUsers } = props;
+    const { currentUser, setCurrentUser, users, setUsers, mode, setMode } = props;
     const [usernameInput, setUsernameInput] = useState<string>("");
     const [passwordInput, setPasswordInput] = useState<string>("");
     
@@ -61,11 +61,36 @@ interface SidebarProps {
         setPasswordInput("");
     }, []);
     
-    return (
-        <div className='h-full flex flex-col max-w-1/3'>
-            <div className="h-screen flex flex-col p-4 mr-auto shadow-[4px_0_20px_grey]">
+    const classMap: { [key: string]: {[key: string]: string}} = {
+        match: {
+            color: "text-[#84cc16]",
+            border: "border-lime-500",
+            shadow: "shadow-[4px_0_20px_#84cc16]",
+        },
+        practice: {
+            color: "text-[#FAA916]",
+            border: "border-[#FAA916]",
+            shadow: "shadow-[4px_0_20px_#FAA916]",
+        },
+        friends: {
+            color: "text-[#F92A82]",
+            border: "border-[#F92A82]",
+            shadow: "shadow-[4px_0_20px_#F92A82]",
+        },
+        profile: {
+            color: "text-[#75B9BE]",
+            border: "border-[#75B9BE]",
+            shadow: "shadow-[4px_0_20px_#75B9BE]",
+        },
+      };
+      
+      const { color, border, shadow } = classMap[mode];
+      
+      return (
+        <div className="h-full flex flex-col max-w-1/3">
+            <div className={`h-screen flex flex-col p-4 mr-auto border-r-4 ${border} ${shadow}`}>
                 <div className="mr-auto">
-                    <h1 className="mx-auto text-4xl text-lime-500 font-bold ">Tennis Match Tracker</h1>
+                    <h1 className={`mx-auto text-4xl ${color} font-bold`}>Tennis Match Tracker</h1>
                     <div className="mx-auto text-center items-center text-md">
                         <h2>Created by Khang Nguyen - ktnguyen@udel.edu</h2>
                         <h2>
@@ -82,10 +107,30 @@ interface SidebarProps {
                         //<h1 className='font-semibold text-3xl'>Matches</h1>
                     //</button>
                     }
-                    <button className="border-2 border-black w-full px-2 min-h-16 text-3xl">Matches</button>
-                    <button className="border-2 border-black w-full px-2 min-h-16 text-3xl">Practices</button>
-                    <button className="border-2 border-black w-full px-2 min-h-16 text-3xl">Friends</button>
-                    <button className="border-2 border-black w-full px-2 min-h-16 text-3xl">Profile</button>
+                    <button 
+                        className="border-2 border-black w-full px-2 min-h-16 text-3xl"
+                        onClick={() => {setMode("match")}}
+                    >
+                            Matches
+                    </button>
+                    <button 
+                        className="border-2 border-black w-full px-2 min-h-16 text-3xl"
+                        onClick={() => {setMode("practice")}}
+                    >
+                            Practices
+                    </button>
+                    <button 
+                        className="border-2 border-black w-full px-2 min-h-16 text-3xl"
+                        onClick={() => {setMode("friends")}}
+                    >
+                            Friends
+                    </button>
+                    <button 
+                        className="border-2 border-black w-full px-2 min-h-16 text-3xl"
+                        onClick={() => {setMode("profile")}}
+                    >
+                            Profile
+                    </button>
                 </div>
                 <div className='mt-auto'>
                     <hr className='my-2'></hr>
