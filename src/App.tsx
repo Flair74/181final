@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './App.css';
 import Sidebar from './components/sidebar';
 import { User } from './components/interfaces';
+import Content from './components/content';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -14,6 +15,7 @@ function App() {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return saved ? JSON.parse(saved) : [];
   });
+  const [mode, setMode] = useState<string>("match");
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
@@ -21,8 +23,17 @@ function App() {
   }, [users]);
 
   return (
-    <div className="font-[Outfit]">
-      <Sidebar currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} setUsers={setUsers}/>
+    <div className="font-[Outfit] flex flex-row gap-2 w-screen h-screen">
+      <Sidebar
+        currentUser={currentUser} setCurrentUser={setCurrentUser}
+        users={users} setUsers={setUsers}
+        mode={mode} setMode={setMode}
+      />
+      <Content
+        currentUser={currentUser}
+        mode={mode}
+        setMode={setMode}
+      />
     </div>
   );
 }
