@@ -2,15 +2,22 @@ import React, { useCallback, useState } from 'react';
 import '../App.css';
 import { User } from './interfaces';
 
-//will make a props thing eventually
-function Sidebar({currentUser, setCurrentUser, users, setUsers}: {currentUser: User | null, setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>, users: User[], setUsers: React.Dispatch<React.SetStateAction<User[]>>}) {
-    const [usernameInput, setUsernameInput] = useState<string>("username");
-    const [passwordInput, setPasswordInput] = useState<string>("password");
+interface SidebarProps {
+    currentUser: User | null;
+    setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
+    users: User[];
+    setUsers: React.Dispatch<React.SetStateAction<User[]>>;
+  }
+
+  const Sidebar: React.FC<SidebarProps> = (props) => {
+    const { currentUser, setCurrentUser, users, setUsers } = props;
+    const [usernameInput, setUsernameInput] = useState<string>("");
+    const [passwordInput, setPasswordInput] = useState<string>("");
     
     const register = useCallback((username: string, password: string) => {
         console.log(users)
         console.log(users.map((user) => user.username));
-        if(!(users.map((user) => user.username).includes(username)) && (username != "username")){
+        if(!(users.map((user) => user.username).includes(username)) && (username != "")){
             const newUser: User = {
                 username: username,
                 password: password,
@@ -48,8 +55,8 @@ function Sidebar({currentUser, setCurrentUser, users, setUsers}: {currentUser: U
 
     const logout = useCallback(() => {
         setCurrentUser(null);
-        setUsernameInput("username");
-        setPasswordInput("password");
+        setUsernameInput("");
+        setPasswordInput("");
     }, []);
     
     return (
@@ -69,7 +76,7 @@ function Sidebar({currentUser, setCurrentUser, users, setUsers}: {currentUser: U
                 <div className="flex flex-col">
                     <div className={`mb-2 flex flex-row gap-2 ${currentUser == null ? "h-0 overflow-hidden" : ""}`}>
                         <h2 className="mt-1">Current User: {currentUser ? currentUser.username : "not logged in"}</h2>
-                        <button className={`border-2 border-black px-2 ml-auto ${currentUser !== null ? "visible" : "invisible"}`} onClick={() => {logout()}}>Log Out</button>
+                        <button className={`border-2 border-black px-2 mt-1 ml-auto ${currentUser !== null ? "visible" : "invisible"}`} onClick={() => {logout()}}>Log Out</button>
                     </div>
                     <div className={`flex flex-row gap-2 ${currentUser !== null ? "h-0 overflow-hidden" : ""}`}>
                         <div className="flex flex-col gap-2 w-full">
