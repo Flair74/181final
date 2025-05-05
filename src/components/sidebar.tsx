@@ -4,21 +4,19 @@ import { User } from './interfaces';
 
 interface SidebarProps {
     currentUser: User | null;
-    setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
+    setCurrentUsername: React.Dispatch<React.SetStateAction<string | null>>;
     users: User[];
     setUsers: React.Dispatch<React.SetStateAction<User[]>>;
     mode: string;
     setMode: React.Dispatch<React.SetStateAction<string>>;
-  }
+}
 
   const Sidebar: React.FC<SidebarProps> = (props) => {
-    const { currentUser, setCurrentUser, users, setUsers, mode, setMode } = props;
+    const { currentUser, setCurrentUsername, users, setUsers, mode, setMode } = props;
     const [usernameInput, setUsernameInput] = useState<string>("");
     const [passwordInput, setPasswordInput] = useState<string>("");
     
     const register = useCallback((username: string, password: string) => {
-        console.log(users)
-        console.log(users.map((user) => user.username));
         if(!(users.map((user) => user.username).includes(username)) && (username != "")){
             const newUser: User = {
                 username: username,
@@ -35,28 +33,21 @@ interface SidebarProps {
             // eslint-disable-next-line no-undef
             alert("Invalid Username.");
         }
-    }, [users]);
+    }, [users, setUsers]);
 
     const login = useCallback((username: string, password: string) => {
-        if((users.map((user) => user.username).includes(username))){
-            const attemptedUser = users.filter((user) => user.username == username)[0]
-            if(username == attemptedUser.username && password == attemptedUser.password){
-                setCurrentUser(attemptedUser);
-            } else {
-                // another common baseline function that the linter doesn't recognize
-                // eslint-disable-next-line no-undef
-                alert("Incorrect password.");
-            }
-
+        const user = users.find(user => user.username === username);
+        if (user && user.password === password) {
+            setCurrentUsername(username);
         } else {
-            // another common baseline function that the linter doesn't recognize
+            // L linter
             // eslint-disable-next-line no-undef
-            alert("User not found.");
+            alert("Incorrect username or password.");
         }
-    }, [users]);
+      }, [users, setCurrentUsername]);
 
     const logout = useCallback(() => {
-        setCurrentUser(null);
+        setCurrentUsername(null);
         setUsernameInput("");
         setPasswordInput("");
     }, []);
@@ -88,7 +79,7 @@ interface SidebarProps {
       
       return (
         <div className="h-full flex flex-col max-w-1/3">
-            <div className={`h-screen flex flex-col p-4 mr-auto border-r-4 ${border} ${shadow}`}>
+            <div className={`h-screen my-4 rounded-r-3xl flex flex-col p-4 mr-auto border-r-4 border-y-4 ${border} ${shadow}`}>
                 <div className="mr-auto">
                     <h1 className={`mx-auto text-4xl ${color} font-bold`}>Tennis Match Tracker</h1>
                     <div className="mx-auto text-center items-center text-md">
@@ -108,28 +99,28 @@ interface SidebarProps {
                     //</button>
                     }
                     <button 
-                        className="border-2 border-black w-full px-2 min-h-16 text-3xl"
+                        className={`w-full px-2 min-h-16 text-3xl ${mode=="match" ? "font-semibold" : ""}`}
                         onClick={() => {setMode("match")}}
                     >
-                            Matches
+                            <p className={`inline text-${mode=="match" ? "[#84cc16]" : "gray-400"} text-3xl`}>{'• '}</p>Matches
                     </button>
                     <button 
-                        className="border-2 border-black w-full px-2 min-h-16 text-3xl"
+                        className={`w-full px-2 min-h-16 text-3xl ${mode=="practice" ? "font-semibold" : ""}`}
                         onClick={() => {setMode("practice")}}
                     >
-                            Practices
+                            <p className={`inline text-${mode=="practice" ? "[#FAA916]" : "gray-400"} text-3xl`}>{'• '}</p>Practices
                     </button>
                     <button 
-                        className="border-2 border-black w-full px-2 min-h-16 text-3xl"
+                        className={`w-full px-2 min-h-16 text-3xl ${mode=="friends" ? "font-semibold" : ""}`}
                         onClick={() => {setMode("friends")}}
                     >
-                            Friends
+                            <p className={`inline text-${mode=="friends" ? "[#F92A82]" : "gray-400"} text-3xl`}>{'• '}</p>Friends
                     </button>
                     <button 
-                        className="border-2 border-black w-full px-2 min-h-16 text-3xl"
+                        className={`w-full px-2 min-h-16 text-3xl ${mode=="profile" ? "font-semibold" : ""}`}
                         onClick={() => {setMode("profile")}}
                     >
-                            Profile
+                            <p className={`inline text-${mode=="profile" ? "[#75B9BE]" : "gray-400"} text-3xl`}>{'• '}</p>Profile
                     </button>
                 </div>
                 <div className='mt-auto'>
@@ -137,16 +128,16 @@ interface SidebarProps {
                     <div className="flex flex-col">
                         <div className={`mb-2 flex flex-row gap-2 ${currentUser == null ? "h-0 overflow-hidden" : ""}`}>
                             <h2 className="mt-1">Current User: {currentUser ? currentUser.username : "not logged in"}</h2>
-                            <button className={`border-2 border-black px-2 mt-1 ml-auto ${currentUser !== null ? "visible" : "invisible"}`} onClick={() => {logout()}}>Log Out</button>
+                            <button className={`underline decoration-[#84cc16] underline-offset-2 decoration-2 px-2 mt-1 ml-auto ${currentUser !== null ? "visible" : "invisible"}`} onClick={() => {logout()}}>Log Out</button>
                         </div>
                         <div className={`flex flex-row gap-2 ${currentUser !== null ? "h-0 overflow-hidden" : ""}`}>
                             <div className="flex flex-col gap-2 w-full">
-                                <input className="border-2 border-black px-2 w-full" type="text" placeholder="Username" value={usernameInput} onChange={e => {setUsernameInput(e.target.value)}}/>
-                                <input className="border-2 border-black px-2 w-full" type="text" placeholder="Password" value={passwordInput} onChange={e => {setPasswordInput(e.target.value)}}/>
+                                <input className="px-2 w-full" type="text" placeholder="Username" value={usernameInput} onChange={e => {setUsernameInput(e.target.value)}}/>
+                                <input className="px-2 w-full" type="text" placeholder="Password" value={passwordInput} onChange={e => {setPasswordInput(e.target.value)}}/>
                             </div>
-                            <div className="flex flex-col gap-2 mb-2 ml-auto"> 
-                                <button className="border-2 border-black w-full px-2 ml-auto" onClick={() => {register(usernameInput, passwordInput)}}>Register</button>
-                                <button className="border-2 border-black w-full px-2 ml-auto" onClick={() => {login(usernameInput, passwordInput)}}>Login</button>
+                            <div className="flex flex-col gap-2 ml-auto"> 
+                                <button className="w-full px-2 ml-auto underline decoration-[#84cc16] underline-offset-2 decoration-2" onClick={() => {register(usernameInput, passwordInput)}}>Register</button>
+                                <button className="w-full px-2 ml-auto underline decoration-[#84cc16] underline-offset-2 decoration-2" onClick={() => {login(usernameInput, passwordInput)}}>Login</button>
                             </div>
                         </div>
                     </div>
