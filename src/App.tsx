@@ -6,7 +6,7 @@ import { User } from './components/interfaces';
 import Content from './components/content';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUsername, setCurrentUsername] = useState<string | null>(null);
   const [users, setUsers] = useState<User[]>(() => {
     // localStorage is a recognized global value, yet linter throws error.
     // eslint-disable-next-line no-undef
@@ -17,20 +17,27 @@ function App() {
   });
   const [mode, setMode] = useState<string>("match");
 
+  const currentUser = users.find(user => user.username === currentUsername) || null;
+
   useEffect(() => {
     // eslint-disable-next-line no-undef
     localStorage.setItem('users', JSON.stringify(users));
   }, [users]);
 
   return (
-    <div className="font-[Outfit] flex flex-row gap-2 w-screen h-screen">
+    <div className="font-[Outfit] flex flex-row gap-2 w-screen h-screen bg-[#FCFAFA]">
       <Sidebar
-        currentUser={currentUser} setCurrentUser={setCurrentUser}
-        users={users} setUsers={setUsers}
-        mode={mode} setMode={setMode}
+        currentUser={currentUser} 
+        setCurrentUsername={setCurrentUsername}
+        users={users} 
+        setUsers={setUsers}
+        mode={mode} 
+        setMode={setMode}
       />
       <Content
         currentUser={currentUser}
+        users={users}
+        setUsers={setUsers}
         mode={mode}
         setMode={setMode}
       />

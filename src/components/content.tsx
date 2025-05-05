@@ -9,19 +9,21 @@ import Profile from './profile';
 
 interface ContentProps {
     currentUser: User | null;
+    users: User[];
+    setUsers: React.Dispatch<React.SetStateAction<User[]>>;
     mode: string;
     setMode: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Content: React.FC<ContentProps> = (props) => {
-    const { currentUser, mode, setMode } = props;
-    currentUser;
-    setMode;
+    const { currentUser, users, setUsers, mode} = props;
     return (
         <div className='flex flex-1 h-screen justify-center'>
             {mode === "match" && (
                 <Matches
                     currentUser={currentUser}
+                    users={users}
+                    setUsers={setUsers}
                 />
             )}
             {mode === "practice" && (
