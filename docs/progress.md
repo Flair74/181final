@@ -2,7 +2,8 @@
  - [x] NAME: users should be able to view the author of the page clearly on the screen
  - [x] LOGIN: users should be able to login/create accounts
  - [x] LOCALSTORAGE: website uses localstorage to store account data
- - [ ] MATCHES: users should be able to create new matches and view old matches
+ - [x] MATCHES: users should be able to create new matches and view old matches
+ - [x] MATCH SCORING: users can edit match score with different options and also remove matches
  - [ ] FRIENDS: users can add friends and see their match history
  - [ ] PROFILE: users can see their profile and stats
  - [ ] PRACTICE TRACKING: users can track practices
