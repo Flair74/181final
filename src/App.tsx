@@ -25,7 +25,7 @@ function App() {
   }, [users]);
 
   return (
-    <div className="font-[Outfit] flex flex-row gap-2 w-screen h-screen bg-[#FCFAFA]">
+    <div className="font-[Outfit] flex flex-row gap-2 w-screen h-screen bg-gray-800 text-[#FCFAFA]">
       <Sidebar
         currentUser={currentUser} 
         setCurrentUsername={setCurrentUsername}

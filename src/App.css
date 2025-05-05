@@ -24,6 +24,26 @@
   color: white;
 }
 
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(31, 41, 55);
+  border-left: 8px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(74, 98, 131);
+  border-radius: 8px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(85, 115, 155);
+}
 .App-link {
   color: #61dafb;
 }

@@ -54,24 +54,24 @@ interface SidebarProps {
     
     const classMap: { [key: string]: {[key: string]: string}} = {
         match: {
-            color: "text-[#84cc16]",
-            border: "border-lime-500",
-            shadow: "shadow-[4px_0_20px_#84cc16]",
+            color: "text-[#3E82FC]",
+            border: "border-[#3E82FC]",
+            shadow: "shadow-[0px_4px_0px_#3E82FC]",
         },
         practice: {
             color: "text-[#FAA916]",
             border: "border-[#FAA916]",
-            shadow: "shadow-[4px_0_20px_#FAA916]",
+            shadow: "shadow-[0px_4px_0px_#FAA916]",
         },
         friends: {
             color: "text-[#F92A82]",
             border: "border-[#F92A82]",
-            shadow: "shadow-[4px_0_20px_#F92A82]",
+            shadow: "shadow-[0px_4px_0px_#F92A82]",
         },
         profile: {
-            color: "text-[#75B9BE]",
-            border: "border-[#75B9BE]",
-            shadow: "shadow-[4px_0_20px_#75B9BE]",
+            color: "text-[#A45EE5]",
+            border: "border-[#A45EE5]",
+            shadow: "shadow-[0px_4px_0px_#A45EE5]",
         },
       };
       
@@ -102,7 +102,7 @@ interface SidebarProps {
                         className={`w-full px-2 min-h-16 text-3xl ${mode=="match" ? "font-semibold" : ""}`}
                         onClick={() => {setMode("match")}}
                     >
-                            <p className={`inline text-${mode=="match" ? "[#84cc16]" : "gray-400"} text-3xl`}>{'• '}</p>Matches
+                            <p className={`inline text-${mode=="match" ? "[#3E82FC]" : "gray-400"} text-3xl`}>{'• '}</p>Matches
                     </button>
                     <button 
                         className={`w-full px-2 min-h-16 text-3xl ${mode=="practice" ? "font-semibold" : ""}`}
@@ -120,7 +120,7 @@ interface SidebarProps {
                         className={`w-full px-2 min-h-16 text-3xl ${mode=="profile" ? "font-semibold" : ""}`}
                         onClick={() => {setMode("profile")}}
                     >
-                            <p className={`inline text-${mode=="profile" ? "[#75B9BE]" : "gray-400"} text-3xl`}>{'• '}</p>Profile
+                            <p className={`inline text-${mode=="profile" ? "[#A45EE5]" : "gray-400"} text-3xl`}>{'• '}</p>Profile
                     </button>
                 </div>
                 <div className='mt-auto'>
@@ -128,16 +128,16 @@ interface SidebarProps {
                     <div className="flex flex-col">
                         <div className={`mb-2 flex flex-row gap-2 ${currentUser == null ? "h-0 overflow-hidden" : ""}`}>
                             <h2 className="mt-1">Current User: {currentUser ? currentUser.username : "not logged in"}</h2>
-                            <button className={`underline decoration-[#84cc16] underline-offset-2 decoration-2 px-2 mt-1 ml-auto ${currentUser !== null ? "visible" : "invisible"}`} onClick={() => {logout()}}>Log Out</button>
+                            <button className={`underline decoration-[#3E82FC] underline-offset-2 decoration-2 px-2 mt-1 ml-auto ${currentUser !== null ? "visible" : "invisible"}`} onClick={() => {logout()}}>Log Out</button>
                         </div>
                         <div className={`flex flex-row gap-2 ${currentUser !== null ? "h-0 overflow-hidden" : ""}`}>
                             <div className="flex flex-col gap-2 w-full">
-                                <input className="px-2 w-full" type="text" placeholder="Username" value={usernameInput} onChange={e => {setUsernameInput(e.target.value)}}/>
-                                <input className="px-2 w-full" type="text" placeholder="Password" value={passwordInput} onChange={e => {setPasswordInput(e.target.value)}}/>
+                                <input className="px-2 w-full bg-gray-800" type="text" placeholder="Username" value={usernameInput} onChange={e => {setUsernameInput(e.target.value)}}/>
+                                <input className="px-2 w-full bg-gray-800" type="password" placeholder="Password" value={passwordInput} onChange={e => {setPasswordInput(e.target.value)}}/>
                             </div>
                             <div className="flex flex-col gap-2 ml-auto"> 
-                                <button className="w-full px-2 ml-auto underline decoration-[#84cc16] underline-offset-2 decoration-2" onClick={() => {register(usernameInput, passwordInput)}}>Register</button>
-                                <button className="w-full px-2 ml-auto underline decoration-[#84cc16] underline-offset-2 decoration-2" onClick={() => {login(usernameInput, passwordInput)}}>Login</button>
+                                <button className="w-full px-2 ml-auto underline decoration-[#3E82FC] underline-offset-2 decoration-2" onClick={() => {register(usernameInput, passwordInput)}}>Register</button>
+                                <button className="w-full px-2 ml-auto underline decoration-[#3E82FC] underline-offset-2 decoration-2" onClick={() => {login(usernameInput, passwordInput)}}>Login</button>
                             </div>
                         </div>
                     </div>
