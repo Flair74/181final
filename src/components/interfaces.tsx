@@ -4,12 +4,19 @@ export interface Match {
     score: Set[],
     date: string,
 }
+
+export interface Practice {
+    id: string,
+    date: string,
+    description: string
+}
   
 export interface User {
     username: string;
     password: string;
-    friends: User[];
+    friends: string[];
     matches: Match[];
+    practices: Practice[];
 }
 
 export interface Set {

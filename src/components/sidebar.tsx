@@ -23,6 +23,7 @@ interface SidebarProps {
                 password: password,
                 friends: [],
                 matches: [],
+                practices: []
             }
             setUsers((prev: User[]) => [...prev, newUser]);
             // another common baseline function that the linter doesn't recognize

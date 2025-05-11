@@ -29,6 +29,8 @@ const Content: React.FC<ContentProps> = (props) => {
             {mode === "practice" && (
                 <Practices
                     currentUser={currentUser}
+                    users={users}
+                    setUsers={setUsers}
                 />
             )}
             {mode === "friends" && (
