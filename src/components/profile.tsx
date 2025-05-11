@@ -8,17 +8,19 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = (props) => {
     const { currentUser } = props;
+    //reduce getting some action...
     const wins  = currentUser?.matches.filter((match) => match.score.filter((set) => set.win).length > match.score.filter((set) => !set.win).length).length;
     const setsPlayed = currentUser?.matches.reduce((acc, cv) => acc + cv.score.length, 0);
     const setsWon = currentUser?.matches.reduce((acc, cv) => acc + cv.score.filter((set) => set.win).length, 0);
     const gamesPlayed = currentUser?.matches.reduce((acc, cv) => acc+cv.score.reduce((acc, cv) => acc + cv.score1 + cv.score2, 0), 0);
-    const gamesWon =                             currentUser?.matches.reduce((acc, cv) => acc+cv.score.reduce((acc, cv) => acc + cv.score1, 0), 0);
+    const gamesWon = currentUser?.matches.reduce((acc, cv) => acc+cv.score.reduce((acc, cv) => acc + cv.score1, 0), 0);
+    const avgRating = currentUser ? currentUser.practices.length > 0 ? (currentUser.practices.reduce((acc, cv) => acc + cv.rating, 0)/currentUser.practices.length).toFixed(2) : 0 : 0;
     return (
         <div className="w-full flex flex-col items-center">
             <div className="border-4 border-[#A45EE5] shadow-[0px_4px_0px_#A45EE5] rounded-full w-1/2 flex flex-row p-2 pl-4 pr-2 my-4 h-16 items-center">
                 <h1 className="text-3xl font-semibold"> <p className="inline text-[#A45EE5]">{'• '}</p>Profile - {currentUser?.username}</h1>
             </div>
-            <div className="border-4 border-[#A45EE5] shadow-[0px_4px_0px_#A45EE5] rounded-3xl w-2/3 flex flex-row p-4 px-6 my-4 h-2/3">
+            <div className="border-4 border-[#A45EE5] shadow-[0px_4px_0px_#A45EE5] rounded-3xl w-2/3 flex flex-col p-4 px-6 space-y-4">
                 <div className="w-full">
                     <h3 className="text-xl font-bold">Match Statistics</h3>
                     <hr className="my-1"/>
@@ -69,6 +71,18 @@ const Profile: React.FC<ProfileProps> = (props) => {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="w-full">
+                    <h3 className="text-xl font-bold">Practice Statistics</h3>
+                    <hr className="my-1"/>
+                    <p>Practices: {currentUser ? currentUser.practices.length : 0}</p>
+                    <p>Average Practice Rating: {avgRating}</p>
+                </div>
+                <div className="w-full">
+                    <h3 className="text-xl font-bold">Friends Statistics</h3>
+                    <hr className="my-1"/>
+                    <p>Friends: {currentUser ? currentUser.friends.length : 0}</p>
+                    <p>Friends List: {currentUser?.friends.join(", ")}</p>
                 </div>
             </div>
         </div>
