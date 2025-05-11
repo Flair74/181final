@@ -6,7 +6,7 @@
  - [x] MATCH SCORING: users can edit match score with different options and also remove matches
  - [ ] FRIENDS: users can add friends and see their match history
  - [ ] PROFILE: users can see their profile and stats
- - [ ] PRACTICE TRACKING: users can track practices
+ - [x] PRACTICE TRACKING: users can track practices
 
  # EXTENSIONS
  - [ ] DATABASE(hard): connect to a database to store data
