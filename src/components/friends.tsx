@@ -127,16 +127,38 @@ const Friends: React.FC<FriendsProps> = (props) => {
 
             <div className="w-2/3 space-y-4 mb-4 overflow-auto h-full scrollbar pr-2">
                 {currentUser?.friends.map((friend) => (
-                    <div key={`friend-${friend}`} className={`border-2 border-[#FAA916] shadow-[0px_4px_0px_#FAA916] rounded-2xl p-4`}>
-                        <div className="flex justify-between items-center mb-3">
+                    <div key={`friend-${friend}`} className={`border-2 border-[#F92A82] shadow-[0px_4px_0px_#F92A82] rounded-2xl p-4`}>
+                        <div className="flex justify-between items-center">
                             <h3 className="text-xl font-semibold">
                                 {friend}
                             </h3>
                             <span className="text-gray-200 text-sm">
                                 <button className="p-1 px-2" onClick={() => { removeFriend(friend); }}>
-                                    <p className={`underline decoration-[#FAA916] underline-offset-2 decoration-2`}>Remove</p>
+                                    <p className={`underline decoration-[#F92A82] underline-offset-2 decoration-2`}>Remove</p>
                                 </button>
                             </span>
+                        </div>
+                        <div className="flex flex-row gap-16">
+                            <div>
+                                <h4 className="text-medium">Recent Matches:</h4>
+                                {/*stunning line of code here*/}
+                                {users.find((user) => user.username == friend)?.matches.slice(0, Math.min(users.find((user) => user.username == friend)!.matches.length, 3)).map((match) => 
+                                    <div >
+                                        <p>
+                                            {typeof match.opponent === 'object' ? 
+                                            match.opponent.username : 
+                                            match.opponent + ", " + 
+                                            new Date(match.date).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                            <div>
+                                <h4 className="text-medium">Statistics:</h4>
+                                <p>Matches played: {users.find((user) => user.username == friend)?.matches.length}</p>
+                                <p>Matches won: {users.find((user) => user.username == friend)?.matches.filter((match) => match.score.filter((set) => set.win).length > match.score.filter((set) => !set.win).length).length}</p>
+                                <p>Friends: {users.find((user) => user.username == friend)?.friends.length}</p>
+                            </div>
                         </div>
                     </div>
                 ))}
