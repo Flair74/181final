@@ -8,8 +8,11 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = (props) => {
     const { currentUser } = props;
+    currentUser;
     return (
-        <div className="place-self-center">Current mode: profile Current user: {currentUser ? currentUser.username : "null"}</div>
+        <div className="w-full flex flex-col items-center">
+
+        </div>
     )
 }
 

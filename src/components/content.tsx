@@ -36,6 +36,8 @@ const Content: React.FC<ContentProps> = (props) => {
             {mode === "friends" && (
                 <Friends
                     currentUser={currentUser}
+                    users={users}
+                    setUsers={setUsers}
                 />
             )}
             {mode === "profile" && (
