@@ -8,7 +8,8 @@ export interface Match {
 export interface Practice {
     id: string,
     date: string,
-    description: string
+    description: string,
+    rating: number
 }
   
 export interface User {
