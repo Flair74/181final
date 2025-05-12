@@ -5,7 +5,7 @@
  - [x] MATCHES: users should be able to create new matches and view old matches
  - [x] MATCH SCORING: users can edit match score with different options and also remove matches
  - [x] FRIENDS: users can add friends and see their match history
- - [ ] PROFILE: users can see their profile and stats
+ - [x] PROFILE: users can see their profile and stats
  - [x] PRACTICE TRACKING: users can track practices
 
  # EXTENSIONS
