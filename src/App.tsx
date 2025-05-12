@@ -15,10 +15,12 @@ function App() {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return saved ? JSON.parse(saved) : [];
   });
-  const [mode, setMode] = useState<string>("match");
 
+  //defaults
+  const [mode, setMode] = useState<string>("match");
   const currentUser = users.find(user => user.username === currentUsername) || null;
 
+  //make sure the users value is always updated
   useEffect(() => {
     // eslint-disable-next-line no-undef
     localStorage.setItem('users', JSON.stringify(users));

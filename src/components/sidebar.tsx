@@ -16,6 +16,7 @@ interface SidebarProps {
     const [usernameInput, setUsernameInput] = useState<string>("");
     const [passwordInput, setPasswordInput] = useState<string>("");
     
+    //create account using blank account template, validate username
     const register = useCallback((username: string, password: string) => {
         if(!(users.map((user) => user.username).includes(username)) && (username != "")){
             const newUser: User = {
@@ -36,6 +37,7 @@ interface SidebarProps {
         }
     }, [users, setUsers]);
 
+    //password check
     const login = useCallback((username: string, password: string) => {
         const user = users.find(user => user.username === username);
         if (user && user.password === password) {
@@ -47,12 +49,14 @@ interface SidebarProps {
         }
       }, [users, setCurrentUsername]);
 
+    //logout by changing state values
     const logout = useCallback(() => {
         setCurrentUsername(null);
         setUsernameInput("");
         setPasswordInput("");
     }, []);
-    
+   
+    //utility constant for colors
     const classMap: { [key: string]: {[key: string]: string}} = {
         match: {
             color: "text-[#3E82FC]",
@@ -76,6 +80,7 @@ interface SidebarProps {
         },
       };
       
+      //using this to simplify tailwind
       const { color, border, shadow } = classMap[mode];
       
       return (

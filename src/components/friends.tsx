@@ -13,11 +13,13 @@ const Friends: React.FC<FriendsProps> = (props) => {
     const [addingFriend, setAddingFriend] = useState<boolean>(false);
     const [tempUsername, setTempUsername] = useState<string>("");
 
+    //opens add friend modal
     const addFriend = useCallback(() => {
         if(!currentUser) return;
         setAddingFriend(true);
     }, [currentUser, setUsers])
 
+    //saves friend from add friend modal, to both current user and friend
     const saveFriend = useCallback(() => {
         if(!currentUser || !addingFriend) return;
         if(users.map((user) => user.username).includes(tempUsername) && tempUsername != currentUser.username){
@@ -52,6 +54,7 @@ const Friends: React.FC<FriendsProps> = (props) => {
         }
     }, [currentUser, addingFriend, setAddingFriend, tempUsername, setTempUsername, setUsers])
 
+    //remove friend </3
     const removeFriend = useCallback((name: string) => {
             if (!currentUser) return;
             const updatedUser = {
@@ -141,7 +144,7 @@ const Friends: React.FC<FriendsProps> = (props) => {
                         <div className="flex flex-row gap-16">
                             <div>
                                 <h4 className="text-medium">Recent Matches:</h4>
-                                {/*stunning line of code here*/}
+                                {/*stunning line of code here, limiting the amount of matches that can be displayed*/}
                                 {users.find((user) => user.username == friend)?.matches.slice(0, Math.min(users.find((user) => user.username == friend)!.matches.length, 3)).map((match) => 
                                     <div >
                                         <p>

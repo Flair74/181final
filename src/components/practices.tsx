@@ -15,6 +15,7 @@ const Practices: React.FC<PracticesProps> = (props) => {
     const [tempDesc, setTempDesc] = useState<string>("");
     const [tempRating, setTempRating] = useState<number>(5);
     users;
+    //add a default practice 
     const addPractice = useCallback(() => {
         if (!currentUser) return;
         const newPrac: Practice = {
@@ -36,6 +37,7 @@ const Practices: React.FC<PracticesProps> = (props) => {
         );
     }, [currentUser, setUsers]);
 
+    //delete practice
     const deletePractice = useCallback((id: string) => {
         if (!currentUser) return;
         const updatedUser = {
@@ -50,6 +52,7 @@ const Practices: React.FC<PracticesProps> = (props) => {
         );
     }, [currentUser, setUsers]);
 
+    //open edit practice modal
     const editPractice = useCallback((practice: Practice) => {
             setEditingPrac(practice);
             setTempDate(practice.date);
@@ -57,6 +60,7 @@ const Practices: React.FC<PracticesProps> = (props) => {
             setTempRating(practice.rating);
     }, [setEditingPrac, setTempDate, setTempDesc, setTempRating]);
 
+    //save practice from edit modal
     const savePractice = useCallback(() => {
         if (!currentUser || !editingPrac) return;
         
@@ -157,7 +161,7 @@ const Practices: React.FC<PracticesProps> = (props) => {
 
             <div className="w-2/3 space-y-4 mb-4 overflow-auto h-full scrollbar pr-2">
                 {currentUser?.practices.map((practice) => (
-                    <div key={`match-${practice.id}`} className={`border-2 border-[#FAA916] shadow-[0px_4px_0px_#FAA916] rounded-2xl p-4`}>
+                    <div key={`practice-${practice.id}`} className={`border-2 border-[#FAA916] shadow-[0px_4px_0px_#FAA916] rounded-2xl p-4`}>
                         <div className="flex justify-between items-center mb-3">
                             <h3 className="text-xl font-semibold">
                                 Practice •

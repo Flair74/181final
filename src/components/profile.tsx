@@ -9,6 +9,7 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = (props) => {
     const { currentUser } = props;
     //reduce getting some action...
+    //getting statistics
     const wins  = currentUser?.matches.filter((match) => match.score.filter((set) => set.win).length > match.score.filter((set) => !set.win).length).length;
     const setsPlayed = currentUser?.matches.reduce((acc, cv) => acc + cv.score.length, 0);
     const setsWon = currentUser?.matches.reduce((acc, cv) => acc + cv.score.filter((set) => set.win).length, 0);

@@ -15,6 +15,7 @@ interface ContentProps {
     setMode: React.Dispatch<React.SetStateAction<string>>;
 }
 
+// this simply switches modes based on the mode state from main app.
 const Content: React.FC<ContentProps> = (props) => {
     const { currentUser, users, setUsers, mode} = props;
     return (

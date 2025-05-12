@@ -10,6 +10,7 @@ interface MatchesProps {
 
 const Matches: React.FC<MatchesProps> = (props) => {
     const { currentUser, users, setUsers } = props;
+    //define useState dynamic variables
     const [editingMatch, setEditingMatch] = useState<Match | null>(null);
     const [tempOpponent, setTempOpponent] = useState("");
     const [tempDate, setTempDate] = useState("");
@@ -18,7 +19,10 @@ const Matches: React.FC<MatchesProps> = (props) => {
     const [newSetScore1, setNewSetScore1] = useState(0);
     const [newSetScore2, setNewSetScore2] = useState(0);
     const [newGameWon, setNewGameWon] = useState(true);
-    users;
+
+    // for the below functions, most data is stored to users using setUsers
+
+    //adds a default match
     const addMatch = useCallback(() => {
         if (!currentUser) return;
     
@@ -39,8 +43,9 @@ const Matches: React.FC<MatchesProps> = (props) => {
             user.username === currentUser.username ? updatedUser : user
           )
         );
-    }, [currentUser, setUsers]);
+    }, [currentUser, users, setUsers]);
     
+    // deletes a match
     const deleteMatch = useCallback((id: string) => {
         if (!currentUser) return;
         const updatedUser = {
@@ -53,8 +58,9 @@ const Matches: React.FC<MatchesProps> = (props) => {
                 user.username === currentUser.username ? updatedUser : user
             )
         );
-    }, [currentUser, setUsers]);
+    }, [currentUser, users, setUsers]);
 
+    //opens the edit modal for a match
     const editMatch = useCallback((match: Match) => {
         setEditingMatch(match);
         setTempOpponent(typeof match.opponent === 'object' ? match.opponent.username : match.opponent);
@@ -62,6 +68,7 @@ const Matches: React.FC<MatchesProps> = (props) => {
         setTempSets([...match.score]);
     }, []);
 
+    //saves a match from the edit modal
     const saveMatch = useCallback(() => {
         if (!currentUser || !editingMatch) return;
         
@@ -86,8 +93,9 @@ const Matches: React.FC<MatchesProps> = (props) => {
         );
 
         setEditingMatch(null);
-    }, [currentUser, editingMatch, tempOpponent, tempDate, tempSets, setUsers]);
+    }, [currentUser, editingMatch, tempOpponent, tempDate, tempSets, users, setUsers]);
 
+    //adds a default set from within the edit modal
     const addSet = useCallback(() => {
         const newSet: Set = {
             simple: newSetSimple,
@@ -102,6 +110,7 @@ const Matches: React.FC<MatchesProps> = (props) => {
         setNewGameWon(true);
     }, [tempSets, newSetSimple, newSetScore1, newSetScore2, newGameWon]);
 
+    //adds a game to the set
     const addGame = useCallback((setIndex: number) => {
         const updatedSets = [...tempSets];
         updatedSets[setIndex].games.push(newGameWon);
@@ -111,6 +120,7 @@ const Matches: React.FC<MatchesProps> = (props) => {
         setTempSets(updatedSets);
     }, [tempSets, newGameWon]);
 
+    //removes a set
     const removeSet = useCallback((index: number) => {
         const updatedSets = [...tempSets];
         updatedSets.splice(index, 1);
